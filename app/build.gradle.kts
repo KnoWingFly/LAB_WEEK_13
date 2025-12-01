@@ -1,5 +1,5 @@
-import java.io.FileInputStream
 import java.util.Properties
+import java.io.FileInputStream
 
 plugins {
     alias(libs.plugins.android.application)
@@ -11,10 +11,11 @@ plugins {
 val localProperties = Properties()
 val localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
-    localProperties.load(FileInputStream(localPropertiesFile))
+    FileInputStream(localPropertiesFile).use { fis ->
+        localProperties.load(fis)
+    }
 }
 
-val myApiKey = localProperties.getProperty("MY_API_KEY")
 
 android {
     namespace = "com.example.test_lab_week_13"
@@ -28,7 +29,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "MY_API_KEY", myApiKey ?: "\"MISSING_KEY\"")
+        val apiKey = localProperties.getProperty("MY_API_KEY") ?: ""
+        buildConfigField("String", "API_KEY", apiKey)
     }
 
     buildFeatures {
@@ -79,6 +81,10 @@ dependencies {
 
     ksp(libs.moshi.kotlin.codegen)
 
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+
+    ksp(libs.androidx.room.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
