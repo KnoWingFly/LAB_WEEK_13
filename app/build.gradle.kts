@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
+    id("kotlin-kapt")
 }
 
 val localProperties = Properties()
@@ -16,11 +17,11 @@ if (localPropertiesFile.exists()) {
 val myApiKey = localProperties.getProperty("MY_API_KEY")
 
 android {
-    namespace = "com.example.test_lab_week_12"
+    namespace = "com.example.test_lab_week_13"
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.test_lab_week_12"
+        applicationId = "com.example.test_lab_week_13"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -32,6 +33,7 @@ android {
 
     buildFeatures {
         buildConfig = true
+        dataBinding = true
     }
 
     buildTypes {
