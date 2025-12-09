@@ -1,0 +1,69 @@
+Question 1:
+  1. Why is MVVM important? Which files represent Model, which files representView, and which files represent ViewModel?
+
+Answer:
+  Why is MVVM important ? MVVM or we can say Model-View-ViewModel is important because its seperates application UI from its logic of backend or business logic. 
+  Why we need seperate its ? 
+  - because its more easier to maintance if we wanna redesign the UI or logic
+  - more easier to add new feature or manage large app with many/complex data
+
+  Which Files represent the component ?
+  from the project, there has MVVM structure, like:
+    Model (for data layer), where its mainly for handle data/database
+    - Movie.kt (for data class/entity)
+    - MovieDatabase.kt (For Room database)
+    - MovieDao.kt (Data Access Object, its like patterm that a abstract interface for some database.)
+    - MovieRepository.kt (For fetching the data from database)
+    View (for UI layer), where its mainly for display the data and handle user interaction
+    - all in the res/layout (like activity_main, activity_details, etc) (for the layout)
+    - MainActivity.kt (for the ui controller)
+    ViewModel (for connector), its mainly for fetch data from model then prepare its for view
+    - MovieViewModel (prepare data for view)
+
+Question 2:
+  2. In Part 1, you implemented Data Binding, why is this more efficient than usingthe normal method?
+Answer:
+  Data Binding is more efficient, why ? because its remove the manually update UI elemnt by using "findViewByID()" or reatedlly calling adapter methods in the activity.
+  in normal method, we will need:
+    - "findViewById()" to get ref to views
+    - livedata/stateflow manually in main activity
+    - adapter method like addMovies() every time data changes
+
+  while, in data bidning:
+    - viewmodel communicates direct with view by binding like: "app:list="@{viewModel.popularMovies}"
+    - UI Updates auto when data changes
+    - Reduces Null pointer since data binding is more type-safe
+    - More better performance, because its handles updates more efficiently
+
+Question 3:
+  3. In Part 2, you implemented the Singleton Pattern, why is this important?
+
+Answer:
+  its important for database because its ensure that ONLY ONE INSTANCE of the MovieDatabase for entire app.
+  its matter because its can help many of its like:
+  - Prevent inconsitency data 
+  - Avoid race condition (@volatile and synchronized specifically)
+  - Save resource
+  - ensure data validity
+
+Question 4:
+  4. In Part 2 & 3, you implemented the Repository Pattern, why is this important?
+
+Answer:
+  Repository imporant because its acts like manager where its manage the truth of data, coordinating between the API (network) and local database (Room).
+  its matter because:
+  - its can support offline data (from cached data)
+  - reduces unnecesary network calls
+  - keeps data sync
+  - Centralized data logic 
+
+Question 5:
+  5. n part 3, you implemented the Worker Manager, is there another way to refreshyour database with the latest data other than using Worker?
+
+Answer:
+  Yes, its has several alt ways for refresh like:
+  - pull-to-refresh: using "SwipeRefreshLayout" so users manually refresh movie list by swipe down the screen.
+  - Refresh button: add refresh button in UI that will trigger "fetchMoviesFromNetwork()" when clicked
+  - Foreground Service: its more like check periodically check for updates. but its not recomend because its cosumes resource
+  - App launch: its will fetch data when app is opened, so its call refresh function in "onCreate()"
+  - Alarm Manager: its like scheduled task to fetch the data at specific interval. but from what i know its not very reliable than workmanager also its cannot handle constraints.
