@@ -7,7 +7,7 @@
 # LAB_WEEK_13 - Architecture Patterns
 
 ## Project Overview
-This project upgrades the Movie List application by implementing standard Android **Architecture Patterns**. [cite_start]It introduces **MVVM** (Model-View-ViewModel) with **Data Binding** to separate UI and logic[cite: 6, 14]. [cite_start]It also implements the **Repository Pattern** using **Room Database** for offline caching and utilizes **WorkManager** to schedule background data synchronization[cite: 7, 27].
+This project upgrades the Movie List application by implementing standard Android **Architecture Patterns**. It introduces **MVVM** (Model-View-ViewModel) with **Data Binding** to separate UI and logic.It also implements the **Repository Pattern** using **Room Database** for offline caching and utilizes **WorkManager** to schedule background data synchronization.
 
 ---
 
